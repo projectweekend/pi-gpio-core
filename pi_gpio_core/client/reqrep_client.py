@@ -14,25 +14,25 @@ class ReqRepClient(ZmqClient):
         self._connect()
 
     def _connect(self):
-        self.socket = self.context.socket(zmq.REQ)
-        self.socket.connect(self.server_addr)
-        self.poll = zmq.Poller()
-        self.poll.register(self.socket, zmq.POLLIN)
+        self._socket = self._context.socket(zmq.REQ)
+        self._socket.connect(self._server_addr)
+        self._poll = zmq.Poller()
+        self._poll.register(self._socket, zmq.POLLIN)
 
     def _disconnect(self):
-        self.socket.setsockopt(zmq.LINGER, 0)
-        self.socket.close()
-        self.poll.unregister(self.socket)
+        self._socket.setsockopt(zmq.LINGER, 0)
+        self._socket.close()
+        self._poll.unregister(self._socket)
 
     def request(self, obj):
         while self.remaining_retries:
             json_data = json.dumps(obj=obj)
-            self.socket.send_string(json_data)
+            self._socket.send_string(json_data)
             expect_reply = True
             while expect_reply:
-                socks = dict(self.poll.poll(self.timeout))
-                if socks.get(self.socket) == zmq.POLLIN:
-                    response = self.socket.recv_string()
+                socks = dict(self._poll.poll(self.timeout))
+                if socks.get(self._socket) == zmq.POLLIN:
+                    response = self._socket.recv_string()
                     if not response:
                         break
                     else:
@@ -46,7 +46,7 @@ class ReqRepClient(ZmqClient):
                         # server is not online so stop trying
                         break
                     self._connect()
-                    self.socket.send_string(json_data)
+                    self._socket.send_string(json_data)
         else:
-            self.context.term()
+            self._context.term()
             raise ZmqClientError('Max reconnect attempts exceeded')

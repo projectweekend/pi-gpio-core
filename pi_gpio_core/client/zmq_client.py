@@ -8,8 +8,8 @@ class ZmqClientError(Exception):
 class ZmqClient(metaclass=abc.ABCMeta):
 
     def __init__(self, context, server_addr):
-        self.server_addr = server_addr
-        self.context = context
+        self._server_addr = server_addr
+        self._context = context
 
     @abc.abstractmethod
     def _connect(self):
