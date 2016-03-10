@@ -4,6 +4,7 @@ from .reqrep_client import ReqRepClient
 class GpioCoreClientError(Exception):
 
     def __init__(self, message, **kwargs):
+        kwargs.pop('message')
         self.__dict__.update(kwargs)
         super().__init__(message)
 
