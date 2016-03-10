@@ -1,7 +1,0 @@
-.DS_Store
-.drone.yml
-.drone.sec
-.git
-.gitignore
-Dockerfile
-docker-compose.yml
