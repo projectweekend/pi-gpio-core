@@ -33,7 +33,7 @@ class GpioCoreClient(ReqRepClient):
         try:
             return resp['result']
         except KeyError:
-            raise GpioCoreClientError(**resp['error']['message'])
+            raise GpioCoreClientError(**resp['error'])
 
     def add_input(self, pin, pull_up=False, bounce_time=None):
         return self.request(method='add_input', params=[pin, pull_up, bounce_time])
