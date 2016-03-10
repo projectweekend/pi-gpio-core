@@ -1,9 +1,9 @@
-from jsonrpc import dispatcher
+from jsonrpc.dispatcher import Dispatcher
 import gpiozero
 from .exceptions import PinError
 
 
-gpio_dispatcher = dispatcher.Dispatcher()
+gpio_dispatcher = Dispatcher()
 
 
 PINS = {}
