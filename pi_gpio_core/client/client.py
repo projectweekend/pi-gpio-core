@@ -6,7 +6,7 @@ class GpioCoreClientError(Exception):
     def __init__(self, **kwargs):
         message = kwargs.pop('message')
         self.__dict__.update(kwargs)
-        super().__init__(message=message)
+        super().__init__(message)
 
 
 class GpioCoreClient(ReqRepClient):
