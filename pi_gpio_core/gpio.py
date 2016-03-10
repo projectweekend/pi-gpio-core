@@ -16,8 +16,8 @@ class GpioZeroManager:
     def add_input(self, pin, pull_up=False, bounce_time=None):
         self.pins[pin] = self.gpio_lib.DigitalInputDevice(pin, pull_up=pull_up, bounce_time=bounce_time)
 
-    def add_output(self, pin):
-        pass
+    def add_output(self, pin, active_high=True, initial_value=False):
+        self.pins[pin] = self.gpio_lib.DigitalOutputDevice(pin, active_high=active_high, initial_value=initial_value)
 
     def pin_read(self, pin):
         pin = self._lookup_pin(pin=pin)
@@ -34,5 +34,5 @@ class GpioZeroManager:
         return pin.value
 
     def clean_up(self):
-        for key, pin in self.pins.items():
+        for _, pin in self.pins.items():
             pin.close()

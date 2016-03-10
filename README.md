@@ -1,5 +1,6 @@
-# pi-gpio-core
-A ZeroMQ-based service for interacting with GPIO pins
+A ZeroMQ-based service for interacting with GPIO pins. This service runs in the background on a Raspberry Pi and is the foundation for a GPIO API Server and GPIO Socket Server.
+
+TODO: Add links to GPIO API Server and GPIO Socket Server
 
 
 ## Running Tests
@@ -29,9 +30,18 @@ from pi_gpio_core.client import GpioCoreClient
 
 client = GpioCoreClient()
 
-# Add a digital input for pin 13
+# Add a digital input for pin
 client.add_input(pin=13, pull_up=False, bounce_time=None)
 
-# Read digital input for pin 13
+# Add a digital output for pin
+client.add_output(pin=13, active_high=True, initial_value=False)
+
+# Turn on digital output pin
+client.pin_on(pin=13)
+
+# Turn off digital output pin
+client.pin_off(pin=13)
+
+# Read digital input or output for pin
 client.pin_read(pin=13)
 ```
