@@ -1,6 +1,11 @@
 from .reqrep_client import ReqRepClient
 
 
+class GpioCoreClientError(Exception):
+
+    pass
+
+
 class GpioCoreClient(ReqRepClient):
 
     def __init__(self):
@@ -21,7 +26,11 @@ class GpioCoreClient(ReqRepClient):
             'params': params,
             'jsonrpc': '2.0'
         }
-        return super().request(obj=payload)
+        resp = super().request(obj=payload)
+        try:
+            return resp['result']
+        except KeyError:
+            raise GpioCoreClientError(**resp['error']['data'])
 
     def add_input(self, pin, pull_up=False, bounce_time=None):
         return self.request(method='add_input', params=[pin, pull_up, bounce_time])
