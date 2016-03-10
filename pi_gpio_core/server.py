@@ -5,11 +5,11 @@ from .gpio import gpio_dispatcher
 
 class Server:
 
-    def __init__(self, addr):
-        self.addr = addr
+    def __init__(self, port):
+        self.port = port
         self.context = zmq.Context()
         self.socket = self.context.socket(zmq.REP)
-        self.socket.bind(self.addr)
+        self.socket.bind('tcp://127.0.0.1:{0}'.format(self.port))
 
     def run(self):
         while True:
