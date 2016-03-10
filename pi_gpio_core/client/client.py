@@ -3,7 +3,8 @@ from .reqrep_client import ReqRepClient
 
 class GpioCoreClientError(Exception):
 
-    pass
+    def __init__(self, **kwargs):
+        self.__dict__.update(kwargs)
 
 
 class GpioCoreClient(ReqRepClient):
