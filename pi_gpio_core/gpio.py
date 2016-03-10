@@ -32,3 +32,7 @@ class GpioZeroManager:
         pin = self._lookup_pin(pin=pin)
         pin.off()
         return pin.value
+
+    def clean_up(self):
+        for key, pin in self.pins.items():
+            pin.close()

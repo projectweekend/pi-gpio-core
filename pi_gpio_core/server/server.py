@@ -23,7 +23,10 @@ class GpioCore:
         self.socket.bind('tcp://127.0.0.1:{0}'.format(self.port))
 
     def run(self):
-        while True:
-            message = self.socket.recv_string()
-            response = JSONRPCResponseManager.handle(message, gpio_dispatcher)
-            self.socket.send_string(response.json)
+        try:
+            while True:
+                message = self.socket.recv_string()
+                response = JSONRPCResponseManager.handle(message, gpio_dispatcher)
+                self.socket.send_string(response.json)
+        finally:
+            gpio_manager.clean_up()
