@@ -2,7 +2,8 @@ import gpiozero
 from jsonrpc import JSONRPCResponseManager
 from jsonrpc.dispatcher import Dispatcher
 import zmq
-from .gpio import GpioZeroManager
+from pi_gpio_core.gpio import GpioZeroManager
+
 
 gpio_manager = GpioZeroManager(gpio_lib=gpiozero)
 gpio_dispatcher = Dispatcher()
@@ -13,7 +14,7 @@ gpio_dispatcher.add_method(gpio_manager.pin_on)
 gpio_dispatcher.add_method(gpio_manager.pin_off)
 
 
-class Server:
+class GpioCore:
 
     def __init__(self, port):
         self.port = port
