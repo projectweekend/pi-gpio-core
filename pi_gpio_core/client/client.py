@@ -3,8 +3,9 @@ from .reqrep_client import ReqRepClient
 
 class GpioCoreClientError(Exception):
 
-    def __init__(self, **kwargs):
+    def __init__(self, message, **kwargs):
         self.__dict__.update(kwargs)
+        super().__init__(message=message)
 
 
 class GpioCoreClient(ReqRepClient):
@@ -31,7 +32,7 @@ class GpioCoreClient(ReqRepClient):
         try:
             return resp['result']
         except KeyError:
-            raise GpioCoreClientError(**resp['error']['data'])
+            raise GpioCoreClientError(message=resp['error']['message'], **resp['error']['data'])
 
     def add_input(self, pin, pull_up=False, bounce_time=None):
         return self.request(method='add_input', params=[pin, pull_up, bounce_time])
