@@ -1,45 +1,34 @@
-from jsonrpc.dispatcher import Dispatcher
-import gpiozero
 from .exceptions import PinError
 
 
-gpio_dispatcher = Dispatcher()
+class GpioZeroManager:
 
+    def __init__(self, gpio_lib):
+        self.gpio_lib = gpio_lib
+        self.pins = {}
 
-PINS = {}
+    def _lookup_pin(self, pin):
+        try:
+            return self.pins[pin]
+        except KeyError:
+            raise PinError('Pin not active')
 
+    def add_input(self, pin, pull_up=False, bounce_time=None):
+        self.pins[pin] = self.gpio_lib.DigitalInputDevice(pin, pull_up=pull_up, bounce_time=bounce_time)
 
-@gpio_dispatcher.add_method
-def add_input(pin, pull_up=False, bounce_time=None):
-    PINS[pin] = gpiozero.DigitalInputDevice(pin, pull_up=pull_up, bounce_time=bounce_time)
+    def add_output(self, pin):
+        pass
 
+    def pin_read(self, pin):
+        pin = self._lookup_pin(pin=pin)
+        return pin.value
 
-@gpio_dispatcher.add_method
-def add_output(pin):
-    pass
+    def pin_on(self, pin):
+        pin = self._lookup_pin(pin=pin)
+        pin.on()
+        return pin.value
 
-
-@gpio_dispatcher.add_method
-def read(pin):
-    try:
-        return PINS[pin].value
-    except KeyError:
-        raise PinError('Pin not active')
-
-
-@gpio_dispatcher.add_method
-def on(pin):
-    try:
-        PINS[pin].on()
-    except KeyError:
-        raise PinError('Pin not active')
-    return PINS[pin].value
-
-
-@gpio_dispatcher.add_method
-def off(pin):
-    try:
-        PINS[pin].off()
-    except KeyError:
-        raise PinError('Pin not active')
-    return PINS[pin].value
+    def pin_off(self, pin):
+        pin = self._lookup_pin(pin=pin)
+        pin.off()
+        return pin.value

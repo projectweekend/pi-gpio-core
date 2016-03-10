@@ -1,6 +1,16 @@
+import gpiozero
 from jsonrpc import JSONRPCResponseManager
+from jsonrpc.dispatcher import Dispatcher
 import zmq
-from .gpio import gpio_dispatcher
+from .gpio import GpioZeroManager
+
+gpio_manager = GpioZeroManager(gpio_lib=gpiozero)
+gpio_dispatcher = Dispatcher()
+gpio_dispatcher.add_method(gpio_manager.add_input)
+gpio_dispatcher.add_method(gpio_manager.add_output)
+gpio_dispatcher.add_method(gpio_manager.pin_read)
+gpio_dispatcher.add_method(gpio_manager.pin_on)
+gpio_dispatcher.add_method(gpio_manager.pin_off)
 
 
 class Server:
