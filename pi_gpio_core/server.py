@@ -1,5 +1,6 @@
-from jsonrpc import JSONRPCResponseManager, dispatcher
+from jsonrpc import JSONRPCResponseManager
 import zmq
+from .gpio import gpio_dispatcher
 
 
 class Server:
@@ -13,5 +14,5 @@ class Server:
     def run(self):
         while True:
             message = self.socket.recv_string()
-            response = JSONRPCResponseManager.handle(message, dispatcher)
+            response = JSONRPCResponseManager.handle(message, gpio_dispatcher)
             self.socket.send_string(response.json)
