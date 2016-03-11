@@ -25,7 +25,7 @@ GpioCoreServer(port='5555').run()
 
 With the server running on the Raspberry Pi, you can start a client from another Python process.
 
-```
+```python
 from pi_gpio_core.client import GpioCoreClient
 
 
