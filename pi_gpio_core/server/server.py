@@ -16,7 +16,7 @@ gpio_dispatcher.add_method(gpio_manager.pin_off)
 
 class GpioCore:
 
-    def __init__(self, port):
+    def __init__(self, port='5555'):
         self.port = port
         self.context = zmq.Context()
         self.socket = self.context.socket(zmq.REP)
