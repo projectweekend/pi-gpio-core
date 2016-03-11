@@ -14,7 +14,7 @@ gpio_dispatcher.add_method(gpio_manager.pin_on)
 gpio_dispatcher.add_method(gpio_manager.pin_off)
 
 
-class GpioCore:
+class GpioCoreServer:
 
     def __init__(self, port='5555'):
         self.port = port

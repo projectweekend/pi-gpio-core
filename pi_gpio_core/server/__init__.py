@@ -1,1 +1,1 @@
-from .server import GpioCore
+from .server import GpioCoreServer
