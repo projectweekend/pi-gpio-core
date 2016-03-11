@@ -3,26 +3,27 @@ A ZeroMQ-based service for interacting with GPIO pins. This service runs in the 
 TODO: Add links to GPIO API Server and GPIO Socket Server
 
 
-## Running Tests
+## Install it
 
-Tests, with code coverage reporting can be ran with the following command, on a Raspberry Pi only:
+This project is Python 3 only. If Python 3 is not your default Python, use `pip3` instead of `pip`:
 ```
-nosetests -v --with-coverage --cover-erase --cover-package=pi_gpio_core --cover-xml --cover-html
+sudo pip install pi_gpio_core
 ```
 
 
-## Using the server
+## Start a server
+
 ```python
 from pi_gpio_core.server import GpioCore
 
 
-GpioCore(port=5555).run()
+GpioCore(port='5555').run()
 ```
 
 
 ## Using the client
 
-With the server running on the Raspberry Pi
+With the server running on the Raspberry Pi, you can start a client from another Python process.
 
 ```
 from pi_gpio_core.client import GpioCoreClient
@@ -44,4 +45,12 @@ client.pin_off(pin=13)
 
 # Read digital input or output for pin
 client.pin_read(pin=13)
+```
+
+
+## Running Tests
+
+Tests, with code coverage reporting can be ran with the following command, on a Raspberry Pi only:
+```
+nosetests -v --with-coverage --cover-erase --cover-package=pi_gpio_core --cover-xml --cover-html
 ```
