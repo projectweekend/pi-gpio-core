@@ -10,7 +10,7 @@ class GpioCoreClientError(Exception):
 
 class GpioCoreClient(ReqRepClient):
 
-    def __init__(self, port='5555'):
+    def __init__(self, port=5555):
         super().__init__(server_addr='tcp://127.0.0.1:{0}'.format(port))
         self._last_id = None
 
