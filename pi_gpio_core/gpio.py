@@ -14,6 +14,15 @@ class GpioZeroManager:
         except KeyError:
             raise PinError('Pin not active')
 
+    def _pin_pub_callback(self, event):
+        def callback(device):
+            message = {
+                'pin': device.pin.number,
+                'event': event
+            }
+            self.pub_socket.send_json(obj=message)
+        return callback
+
     def add_input(self, pin, pull_up=False, bounce_time=None):
         self.pins[pin] = gpiozero.DigitalInputDevice(pin, pull_up=pull_up, bounce_time=bounce_time)
 
@@ -35,16 +44,20 @@ class GpioZeroManager:
         return pin.value
 
     def enable_pub_when_activated(self, pin):
-        pass
+        pin = self._lookup_pin(pin=pin)
+        pin.when_activated = self._pin_pub_callback(event='activated')
 
     def enable_pub_when_deactivated(self, pin):
-        pass
+        pin = self._lookup_pin(pin=pin)
+        pin.when_deactivated = self._pin_pub_callback(event='deactivated')
 
     def disable_pub_when_activated(self, pin):
-        pass
+        pin = self._lookup_pin(pin=pin)
+        pin.when_activated = None
 
     def disable_pub_when_deactivated(self, pin):
-        pass
+        pin = self._lookup_pin(pin=pin)
+        pin.when_deactivated = None
 
     def clean_up(self):
         for _, pin in self.pins.items():
