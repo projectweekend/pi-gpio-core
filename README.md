@@ -14,10 +14,11 @@ sudo pip install pi_gpio_core
 ## Start a server
 
 ```python
-from pi_gpio_core.server import GpioCoreServer
+from pi_gpio_core.server import gpio_core_server
 
 
-GpioCoreServer(port='5555').run()
+server = gpio_core_server(rpc_port=5555, pub_port=5556)
+server.run()
 ```
 
 
@@ -29,7 +30,7 @@ With the server running on the Raspberry Pi, you can start a client from another
 from pi_gpio_core.client import GpioCoreClient
 
 
-client = GpioCoreClient(port='5555')
+client = GpioCoreClient(port=5555)
 
 # Add a digital input for pin
 client.add_input(pin=13, pull_up=False, bounce_time=None)
