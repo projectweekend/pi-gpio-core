@@ -37,4 +37,4 @@ def gpio_core_server(rpc_port=5555, pub_port=5556):
     pub_socket = context.socket(zmq.PUB)
     pub_socket.bind('tcp://127.0.0.1:{0}'.format(pub_port))
     gpio_manager = GpioZeroManager(pub_socket=pub_socket)
-    return GpioCoreServer(port=rpc_socket, gpio_manager=gpio_manager)
+    return GpioCoreServer(rpc_socket=rpc_socket, gpio_manager=gpio_manager)

@@ -1,11 +1,12 @@
 import abc
+from abc import ABCMeta
 
 
 class ZmqClientError(Exception):
     pass
 
 
-class ZmqClient(metaclass=abc.ABCMeta):
+class ZmqClient(metaclass=ABCMeta):
 
     def __init__(self, context, server_addr):
         self._server_addr = server_addr

@@ -2,7 +2,7 @@ from distutils.core import setup
 
 setup(
     name='pi-gpio-core',
-    version='0.0.9',
+    version='0.0.13',
     author='Brian Hines',
     author_email='brian@projectweekend.net',
     packages=['pi_gpio_core'],

@@ -7,6 +7,7 @@ class SubClient(ZmqClient):
     def __init__(self, server_addr):
         context = zmq.Context()
         super().__init__(context=context, server_addr=server_addr)
+        self._connect()
 
     def _connect(self):
         self._socket = self._context.socket(zmq.SUB)
