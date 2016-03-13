@@ -11,8 +11,8 @@ class GpioCoreClientError(Exception):
 
 class GpioCoreRpcClient(ReqRepClient):
 
-    def __init__(self, rpc_port=5555):
-        super().__init__(server_addr='tcp://127.0.0.1:{0}'.format(rpc_port))
+    def __init__(self, port=5555):
+        super().__init__(server_addr='tcp://127.0.0.1:{0}'.format(port))
         self._last_id = None
 
     def _next_payload_id(self):
@@ -66,5 +66,5 @@ class GpioCoreRpcClient(ReqRepClient):
 
 class GpioCoreSubClient(SubClient):
 
-    def __init__(self, pub_port=5556):
-        super().__init__(server_addr='tcp://127.0.0.1:{0}'.format(pub_port))
+    def __init__(self, port=5556):
+        super().__init__(server_addr='tcp://127.0.0.1:{0}'.format(port))

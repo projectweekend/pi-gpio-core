@@ -1,5 +1,5 @@
 import zmq
-from .zmq_client import ZmqClient, ZmqClientError
+from .zmq_client import ZmqClient
 
 
 class SubClient(ZmqClient):
