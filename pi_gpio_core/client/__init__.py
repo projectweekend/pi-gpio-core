@@ -1,1 +1,1 @@
-from .client import GpioCoreClient
+from .client import GpioCoreRpcClient
