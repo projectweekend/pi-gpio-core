@@ -1,4 +1,5 @@
 from .reqrep_client import ReqRepClient
+from .sub_client import SubClient
 
 
 class GpioCoreClientError(Exception):
@@ -61,3 +62,9 @@ class GpioCoreRpcClient(ReqRepClient):
 
     def disable_pub_when_deactivated(self, pin):
         return self.request(method='disable_pub_when_deactivated', params=[pin])
+
+
+class GpioCoreSubClient(SubClient):
+
+    def __init__(self, pub_port=5556):
+        super().__init__(server_addr='tcp://127.0.0.1:{0}'.format(pub_port))
