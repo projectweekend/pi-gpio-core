@@ -49,3 +49,15 @@ class GpioCoreClient(ReqRepClient):
 
     def pin_off(self, pin):
         return self.request(method='pin_off', params=[pin])
+
+    def enable_pub_when_activated(self, pin):
+        return self.request(method='enable_pub_when_activated', params=[pin])
+
+    def disable_pub_when_activated(self, pin):
+        return self.request(method='disable_pub_when_activated', params=[pin])
+
+    def enable_pub_when_deactivated(self, pin):
+        return self.request(method='enable_pub_when_deactivated', params=[pin])
+
+    def disable_pub_when_deactivated(self, pin):
+        return self.request(method='disable_pub_when_deactivated', params=[pin])

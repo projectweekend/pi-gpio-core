@@ -46,6 +46,18 @@ client.pin_off(pin=13)
 
 # Read digital input or output for pin
 client.pin_read(pin=13)
+
+# Start publishing messages from server's pub_port when pin is activated
+client.enable_pub_when_activated(pin=13)
+
+# Start publishing messages from server's pub_port when pin is deactivated
+client.enable_pub_when_deactivated(pin=13)
+
+# Stop publishing messages from server's pub_port when pin is activated
+client.disable_pub_when_activated(pin=13)
+
+# Stop publishing messages from server's pub_port when pin is deactivated
+client.disable_pub_when_deactivated(pin=13)
 ```
 
 
