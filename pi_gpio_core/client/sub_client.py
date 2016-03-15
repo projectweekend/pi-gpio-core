@@ -19,4 +19,5 @@ class SubClient(ZmqClient):
         self._socket.close()
 
     def messages(self):
-        yield self._socket.recv_json()
+        while True:
+            yield self._socket.recv_json()
