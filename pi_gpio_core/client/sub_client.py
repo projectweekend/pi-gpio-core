@@ -11,6 +11,7 @@ class SubClient(ZmqClient):
 
     def _connect(self):
         self._socket = self._context.socket(zmq.SUB)
+        self._socket.setsockopt(zmq.SUBSCRIBE, b'')
         self._socket.connect(self._server_addr)
 
     def _disconnect(self):
